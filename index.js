@@ -5,16 +5,15 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const urls = require("./routes/urlRoute");
 const redirect = require("./routes/redirectRoute");
+const path = require("path");
+const appPath = path.join(__dirname, "client", "build");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static(appPath));
 app.use("/api/urls", urls);
 app.use("/", redirect);
-
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "Welcome to shortener!" });
-});
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
