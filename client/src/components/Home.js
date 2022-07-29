@@ -5,6 +5,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 const Home = () => {
   const [shortedUrl, setShortedUrl] = useState("");
   const [url, setUrl] = useState("");
+  const [localLinks, setLocalLinks] = useState(localStorage.getItem("links"));
 
   const handleChange = (e) => {
     setUrl((oldUrl) => e.target.value);
@@ -26,6 +27,10 @@ const Home = () => {
       console.log(data);
       if (data.success) {
         setShortedUrl((oldUrl) => "https://xhort.co/" + data.data.slug);
+        localStorage.setItem(
+          "links",
+          JSON.stringify([{ slug: data.data.slug, url: data.data.url }])
+        );
       }
 
       return;
