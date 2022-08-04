@@ -57,4 +57,50 @@ export const MainContainer = styled.main`
   .shortedURL button:hover {
     cursor: pointer;
   }
+
+  & .linkHistory {
+    font-family: var(--main-font);
+    font-size: 18px;
+    width: 40%;
+    background: #fff;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    gap: 0px;
+    list-style: none;
+  }
+
+  & .linkHistory .linkItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: fit-content;
+    padding: 20px;
+    border-bottom: 1px solid rgba(240, 240, 240, 1);
+  }
+
+  & .shortsContainer {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  & .shortsContainer .shortUrl {
+    color: navy;
+  }
+
+  & .shortsContainer button {
+    width: 50px;
+    height: 30px;
+    border-radius: 3px;
+    border: none;
+    background: navy;
+    color: #fff;
+    font-size: 14px;
+    font-family: var(--main-font);
+  }
+
+  & .shortsContainer button:hover {
+    cursor: pointer;
+  }
 `;

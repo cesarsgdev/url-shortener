@@ -5,7 +5,9 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 const Home = () => {
   const [shortedUrl, setShortedUrl] = useState("");
   const [url, setUrl] = useState("");
-  const [localLinks, setLocalLinks] = useState(localStorage.getItem("links"));
+  const [localLinks, setLocalLinks] = useState(
+    JSON.parse(localStorage.getItem("links")) || []
+  );
 
   const handleChange = (e) => {
     setUrl((oldUrl) => e.target.value);
@@ -21,16 +23,15 @@ const Home = () => {
         body: JSON.stringify({ url }),
       };
 
-      console.log(options);
       const shorted = await fetch("api/urls", options);
       const data = await shorted.json();
-      console.log(data);
       if (data.success) {
         setShortedUrl((oldUrl) => "https://xhort.co/" + data.data.slug);
-        localStorage.setItem(
-          "links",
-          JSON.stringify([{ slug: data.data.slug, url: data.data.url }])
-        );
+        setLocalLinks((oldLinks) => [
+          { slug: data.data.slug, url: data.data.url },
+          ...oldLinks,
+        ]);
+        localStorage.setItem("links", JSON.stringify(localLinks));
       }
 
       return;
@@ -52,6 +53,24 @@ const Home = () => {
           <button>Copy</button>
         </CopyToClipboard>
       </section>
+      <ul className="linkHistory">
+        {localLinks &&
+          localLinks.map((link, i) => {
+            return (
+              <li className="linkItem" key={i}>
+                <span className="longUrl">{link.url}</span>
+                <span className="shortsContainer">
+                  <span className="shortUrl">https://xhort.co/{link.slug}</span>
+                  <span className="copyShort">
+                    <CopyToClipboard text={`https://xhort.co/${link.slug}`}>
+                      <button>Copy</button>
+                    </CopyToClipboard>
+                  </span>
+                </span>
+              </li>
+            );
+          })}
+      </ul>
     </MainContainer>
   );
 };
