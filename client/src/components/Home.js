@@ -9,6 +9,10 @@ const Home = () => {
     JSON.parse(localStorage.getItem("links")) || []
   );
 
+  useEffect(() => {
+    localStorage.setItem("links", JSON.stringify(localLinks));
+  }, [localLinks]);
+
   const handleChange = (e) => {
     setUrl((oldUrl) => e.target.value);
   };
@@ -27,11 +31,9 @@ const Home = () => {
       const data = await shorted.json();
       if (data.success) {
         setShortedUrl((oldUrl) => "https://xhort.co/" + data.data.slug);
-        setLocalLinks((oldLinks) => [
-          { slug: data.data.slug, url: data.data.url },
-          ...oldLinks,
-        ]);
-        localStorage.setItem("links", JSON.stringify(localLinks));
+        setLocalLinks((oldLinks) => {
+          return [{ slug: data.data.slug, url: data.data.url }, ...oldLinks];
+        });
       }
 
       return;
@@ -54,7 +56,7 @@ const Home = () => {
         </CopyToClipboard>
       </section>
       <ul className="linkHistory">
-        {localLinks &&
+        {localLinks.length > 0 &&
           localLinks.map((link, i) => {
             return (
               <li className="linkItem" key={i}>
