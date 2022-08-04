@@ -19,7 +19,7 @@ export const MainContainer = styled.main`
   & .shortInputContainer,
   .shortedURL {
     display: flex;
-    width: 40%;
+    width: 60%;
     gap: 10px;
   }
 
@@ -61,12 +61,11 @@ export const MainContainer = styled.main`
   & .linkHistory {
     font-family: var(--main-font);
     font-size: 18px;
-    width: 40%;
-    background: #fff;
+    width: 60%;
     display: flex;
     flex-flow: column;
     justify-content: center;
-    gap: 0px;
+    gap: 0;
     list-style: none;
   }
 
@@ -75,6 +74,7 @@ export const MainContainer = styled.main`
     justify-content: space-between;
     align-items: center;
     height: fit-content;
+    background: #fff;
     padding: 20px;
     border-bottom: 1px solid rgba(240, 240, 240, 1);
   }
@@ -83,6 +83,10 @@ export const MainContainer = styled.main`
     display: flex;
     gap: 10px;
     align-items: center;
+  }
+
+  & .longUrl {
+    color: rgba(75, 75, 75, 1);
   }
 
   & .shortsContainer .shortUrl {

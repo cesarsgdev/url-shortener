@@ -58,7 +58,11 @@ const Home = () => {
           localLinks.map((link, i) => {
             return (
               <li className="linkItem" key={i}>
-                <span className="longUrl">{link.url}</span>
+                <span className="longUrl">
+                  {link.url.length > 55
+                    ? link.url.slice(0, 55) + "..."
+                    : link.url}
+                </span>
                 <span className="shortsContainer">
                   <span className="shortUrl">https://xhort.co/{link.slug}</span>
                   <span className="copyShort">
